@@ -69,18 +69,15 @@
 		68994A44203F9110004D664C /* CoreMLSandbox */ = {
 			isa = PBXGroup;
 			children = (
-				68994A602043AE83004D664C /* Models */,
 				68994A5F2043AE6D004D664C /* MarsHabitatPricer.playground */,
+				68994A602043AE83004D664C /* Models */,
 				68994A45203F9110004D664C /* AppDelegate.swift */,
+				68994A59203F9AAF004D664C /* CameraView.swift */,
 				68994A4B203F9111004D664C /* Main.storyboard */,
+				68DC2F48204412AE00ADDF52 /* View Controllers */,
 				68994A4E203F9111004D664C /* Assets.xcassets */,
 				68994A50203F9111004D664C /* LaunchScreen.storyboard */,
 				68994A53203F9111004D664C /* Info.plist */,
-				68994A59203F9AAF004D664C /* CameraView.swift */,
-				68994A5B203F9D8A004D664C /* CameraViewController.swift */,
-				68DC2F442043CF5B00ADDF52 /* ObjectDetectionViewController.swift */,
-				68DC2F402043C23900ADDF52 /* FaceDetectionViewController.swift */,
-				68DC2F46204403B100ADDF52 /* SentimentClassifierViewController.swift */,
 			);
 			path = CoreMLSandbox;
 			sourceTree = "<group>";
@@ -93,6 +90,17 @@
 				68DC2F3C2043B24A00ADDF52 /* SentimentPolarity.mlmodel */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		68DC2F48204412AE00ADDF52 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				68994A5B203F9D8A004D664C /* CameraViewController.swift */,
+				68DC2F442043CF5B00ADDF52 /* ObjectDetectionViewController.swift */,
+				68DC2F402043C23900ADDF52 /* FaceDetectionViewController.swift */,
+				68DC2F46204403B100ADDF52 /* SentimentClassifierViewController.swift */,
+			);
+			path = "View Controllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
