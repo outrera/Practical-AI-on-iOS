@@ -63,23 +63,35 @@ class CameraView: UIView {
         // Default to the rear camera
         setCameraPosition(.back)
         
+        // Tell the preview layer to use this session
         previewLayer.session = session
         
+        // Make the layer fill the screen
         previewLayer.frame = self.bounds
         
+        // Add the layer and make it visible
         self.layer.insertSublayer(previewLayer, at: 0)
         
+        // Start the session running
         session.startRunning()
         
+        // We get the video data via this AVCaptureVideoDataOutput.
         let captureOutput = AVCaptureVideoDataOutput()
+        
+        // Tell it that we want to receive the samples as they come in from
+        // the session
         captureOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "videoQueue"))
         session.addOutput(captureOutput)
         
+        // Configure the connection between the input and output to make it
+        // deliver frames in the right orientation (otherwise the CoreML models
+        // get confused)
         let connection = captureOutput.connection(with: .video)
         connection?.videoOrientation = .portrait
         
     }
     
+    // Called when this view is created from code.
     override init(frame: CGRect) {
         
         super.init(frame: frame)
@@ -87,12 +99,14 @@ class CameraView: UIView {
         prepareLayer()
     }
     
+    // Called when this view is loaded from a nib.
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
         prepareLayer()
     }
     
+    // When touched, switch between the rear and front cameras.
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         // Get the current camera position
@@ -119,6 +133,7 @@ class CameraView: UIView {
         
     }
     
+    // We'll deliver pixel buffers to this delegate every time we get a new frame
     @IBOutlet var delegate : CameraViewDelegate?
     
 }
@@ -128,6 +143,8 @@ class CameraView: UIView {
 }
 
 extension CameraView : AVCaptureVideoDataOutputSampleBufferDelegate {
+    
+    // Called when a new frame comes in off the camera.
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         
         // We've received a CMSampleBuffer; we want to get its pixel buffer, and
@@ -137,6 +154,7 @@ extension CameraView : AVCaptureVideoDataOutputSampleBufferDelegate {
             fatalError("Failed to convert a sample buffer to a pixel buffer!")
         }
         
+        // Deliver it to our delegate
         self.delegate?.handle(pixelBuffer: originalPixelBuffer)
     
     }
